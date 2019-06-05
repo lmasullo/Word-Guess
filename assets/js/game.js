@@ -61,47 +61,46 @@ document.onkeyup = function keyPressed(event) {
   const x = event.key;
   console.log(x);
 
-  // Check if letter is in current word
-  const letterCheck = arrWord.indexOf(x);
-
   // Extend the prototype Array
-  Array.prototype.multiIndexOf = function (el) { 
-    var idxs = [];
-    for (var i = this.length - 1; i >= 0; i--) {
-        if (this[i] === el) {
-            idxs.unshift(i);
-        }
+  // to get all the indexes if multiple instances of the letter chosen
+  Array.prototype.multiIndexOf = function (el) {
+    const idxs = [];
+    for (let i = this.length - 1; i >= 0; i--) {
+      if (this[i] === el) {
+        idxs.unshift(i);
+      }
     }
     return idxs;
-};
+  };
 
-let justIdx = arrWord.multiIndexOf(x);
- 
-console.log(justIdx);
+  // Check if letter is in current word
+  const letterCheck = arrWord.multiIndexOf(x);
+  console.log(`Idx: ${letterCheck}`);
 
   // If not in the word decrement the guesses left
-  if (letterCheck === -1) {
+  if (letterCheck.length === 0) {
     // Display the remaining guesses
     // Decrement by one
     intGuesses -= 1;
     document.getElementById('guessesLeft').innerHTML = intGuesses;
+
     // Chosen letter is in the current word
   } else {
-    // Add letter to the chosen letter array at the correct position
-    arrCorrect[letterCheck] = x;
+    // Loop through indices array and update the array of the correctly guessed letters
+    for (let i = 0; i < letterCheck.length; i++) {
+      arrCorrect[letterCheck[i]] = x;
+    }
 
-    // Problem with duplicate letters!!!!!!!!
-
-    // Loop through current word array and put the letter at that index and underline at others
+    // Loop through current word array
+    // and put the letter at that index and underline at others
     // First clear the span of the underlines
     document.getElementById('blankWord').innerHTML = '';
     for (let i = 0; i < arrCorrect.length; i++) {
-      // console.log(arrCorrect[i]);
       if (arrCorrect[i] === undefined) {
         // If empty position, display underline
         document.getElementById('blankWord').innerHTML += ' _ ';
       } else {
-        // Display the letter
+        // Display the letter(s)
         document.getElementById('blankWord').innerHTML += arrCorrect[i];
       }
     }
