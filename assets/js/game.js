@@ -54,7 +54,8 @@ console.log(arrWord);
 const arrCorrect = new Array(arrWord.length);
 
 // Function that gets the pressed key,
-function keyPressed(event) {
+// function keyPressed(event) {
+document.onkeyup = function keyPressed(event) {
   const x = event.key;
   console.log(x);
 
@@ -72,6 +73,8 @@ function keyPressed(event) {
     // Add letter to the chosen letter array at the correct position
     arrCorrect[letterCheck] = x;
 
+    // Problem with duplicate letters!!!!!!!!
+
     // Loop through current word array and put the letter at that index and underline at others
     // First clear the span of the underlines
     document.getElementById('blankWord').innerHTML = '';
@@ -86,4 +89,4 @@ function keyPressed(event) {
       }
     }
   }
-}
+};
