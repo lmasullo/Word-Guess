@@ -12,6 +12,9 @@ document.getElementById('losses').innerHTML = intLosses;
 let intGuesses = 12;
 document.getElementById('guessesLeft').innerHTML = intGuesses;
 
+// Set the winning audio
+const winAudio = document.getElementById('castingAudio');
+
 // Create array to hold the guesses
 let arrGuesses = [];
 
@@ -70,7 +73,7 @@ function reset() {
   randSong();
 
   arrCorrect = [];
-  X = arrWord.length;
+  const X = arrWord.length;
   while (arrCorrect.length < X) {
     arrCorrect.push(undefined);
   }
@@ -88,6 +91,12 @@ let arrCorrect = new Array(arrWord.length);
 document.onkeyup = function keyPressed(event) {
   // event.key captures the pressed key
   const x = event.key;
+
+  // Make the winning image hidden
+  document.getElementById('casting').style.display = 'none';
+
+  // Pause the winning audio
+  winAudio.pause();
 
   // Extend the prototype Array
   // to get all the indexes if multiple instances of the letter chosen
@@ -132,7 +141,7 @@ document.onkeyup = function keyPressed(event) {
     // Chosen letter is in the current word
   } else {
     // Loop through indices array and update the array of the correctly guessed letters
-    for (let i = 0; i < letterCheck.length; i++) {
+    for (let i = 0; i < letterCheck.length; i += 1) {
       arrCorrect[letterCheck[i]] = x;
     }
 
@@ -140,13 +149,15 @@ document.onkeyup = function keyPressed(event) {
     // and put the letter at that index and underline at others
     // First clear the span of the underlines
     document.getElementById('blankWord').innerHTML = '';
-    for (let i = 0; i < arrCorrect.length; i++) {
+    for (let i = 0; i < arrCorrect.length; i += 1) {
       if (arrCorrect[i] === undefined) {
         // If empty position, display underline
-        document.getElementById('blankWord').innerHTML += ' _ ';
+        document.getElementById('blankWord').innerHTML += '  _  ';
       } else {
         // Display the letter(s)
-        document.getElementById('blankWord').innerHTML += arrCorrect[i];
+        // Convert to upper case to display
+        const correctUpper = arrCorrect[i].toUpperCase();
+        document.getElementById('blankWord').innerHTML += correctUpper;
       }
     }
 
@@ -158,6 +169,12 @@ document.onkeyup = function keyPressed(event) {
       // Increment the wins
       intWins += 1;
       document.getElementById('wins').innerHTML = intWins;
+
+      // Display the winning casting crowns image
+      document.getElementById('casting').style.display = 'block';
+
+      // Play a casting crowns song
+      winAudio.play();
 
       // Call Reset function
       reset();

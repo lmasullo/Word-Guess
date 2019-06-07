@@ -26,7 +26,7 @@
   </head>
   <body>
     <div class="container">
-      <img src="assets/images/hangman.jpg" alt="" />
+      <img id="hangman" src="assets/images/hangman.jpg" alt="" />
       <div class="jumbotron">
         <h1 class="display-4">Hangman Game!</h1>
         <p class="lead">
@@ -39,6 +39,7 @@
       </div>
 
       <div class="jumbotron">
+        <img id="casting" src="assets/images/casting.jpg" alt="" />
         <span>Wins: </span><span id="wins"></span>
         <br />
         <span>Losses: </span><span id="losses"></span>
@@ -51,6 +52,11 @@
         <br />
       </div>
     </div>
+
+    <audio id="castingAudio">
+      <source src="assets/images/Casting Crowns.m4a" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

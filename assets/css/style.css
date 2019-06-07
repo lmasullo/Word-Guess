@@ -1,4 +1,4 @@
-img {
+#hangman {
   float: left;
   margin-top: 25px;
   margin-right: 10px;
@@ -7,4 +7,9 @@ img {
 
 span {
   font-size: 2em;
+}
+
+#casting {
+  float: right;
+  display: none;
 }
