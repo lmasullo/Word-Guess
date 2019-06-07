@@ -1,0 +1,10 @@
+img {
+  float: left;
+  margin-top: 25px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+span {
+  font-size: 2em;
+}
