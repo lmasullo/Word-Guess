@@ -39,13 +39,15 @@ function randSong() {
 
   // Loop over the random word and get each character and add to an array
   // Create the array to hold the current word
+  // No var or let so it is available in the global scope
   arrWord = [];
   for (let i = 0; i < song.length; i += 1) {
     arrWord.push(song.charAt(i));
+
     // Display the underlines for the word picked, based on array lenght
     document.getElementById('blankWord').innerHTML += ' _ ';
   }
-  // Display the array
+  // Display the array (the chosen song keyword)
   console.log(arrWord);
 
   return arrWord;
@@ -65,45 +67,27 @@ function reset() {
   document.getElementById('blankWord').innerHTML = '';
 
   // Call the random word generator
-  // randSong();
-  arrWord = randSong();
-  // console.log(arrWord);
+  randSong();
 
   arrCorrect = [];
   X = arrWord.length;
   while (arrCorrect.length < X) {
     arrCorrect.push(undefined);
   }
+} // End Reset
 
-  // const arrCorrect = new Array(arrWord.length);
-
-  // console.table(arrCorrect.length);
-
-  // arrCorrect = [];
-  // while (arrCorrect.length > 0) {
-  // arrCorrect.pop();
-  // }
-  // console.log('after clear');
-
-  // console.log(arrCorrect);
-}
 // Initial call of the random word generator
-arrWord = randSong();
+randSong();
 
 // Create an array to hold all the correctly guessed letters
 // Make it the same length as the current word
 let arrCorrect = new Array(arrWord.length);
-console.log('Just Initialized arrCorrect');
-console.log(arrCorrect);
 
 // Function that gets the pressed key
 // Use keyup so it is a complete key press
 document.onkeyup = function keyPressed(event) {
   // event.key captures the pressed key
   const x = event.key;
-  // console.log(x);
-
-  console.log(arrWord);
 
   // Extend the prototype Array
   // to get all the indexes if multiple instances of the letter chosen
@@ -119,7 +103,6 @@ document.onkeyup = function keyPressed(event) {
 
   // Check if letter is in current word (checkes for multiples)
   const letterCheck = arrWord.multiIndexOf(x);
-  // console.log(letterCheck.length);
 
   // If not in the word decrement the guesses left
   if (letterCheck.length === 0) {
@@ -128,7 +111,6 @@ document.onkeyup = function keyPressed(event) {
     if (arrCheck === -1) {
       arrGuesses.push(x);
     }
-    // console.log(arrGuesses);
 
     // Display the remaining guesses
     // Decrement by one
@@ -138,6 +120,7 @@ document.onkeyup = function keyPressed(event) {
     // Display the guesses so far
     document.getElementById('dispGuesses').innerHTML = arrGuesses;
 
+    // User has used up all guesses and lost, so increment losses by 1
     if (intGuesses === 0) {
       intLosses += 1;
       document.getElementById('losses').innerHTML = intLosses;
@@ -172,31 +155,11 @@ document.onkeyup = function keyPressed(event) {
     const arrCheckWin = arrCorrect.includes(undefined);
     console.log(arrCheckWin);
     if (arrCheckWin === false) {
-      //   // Increment the wins
+      // Increment the wins
       intWins += 1;
       document.getElementById('wins').innerHTML = intWins;
 
-      // This is causing error!! I think because arrCorrect has specific length
-      // Clear the correct array
-      // arrCorrect = [];
-      // arrCorrect = arrCorrect(10);
-      // const myArray = [];
-      // arrCorrect = [];
-      // const X = arrWord.length + 1;
-      // while (arrCorrect.length < X) {
-      //   arrCorrect.push('');
-      // }
-      // arrCorrect = new Array(arrWord.length);
-      // arrCorrect.clear;
-
-      // Or this.
-      // while (arrCorrect.length > 0) {
-      // arrCorrect.pop();
-      // }
-
-      // const arrCorrect = new Array(arrWord.length);
-
-      //   // Call Reset function
+      // Call Reset function
       reset();
     }
   } // End check if letter is in the word
