@@ -27,6 +27,10 @@ To deploy this on a live system, just upload the included files to your server.
 
 HTML, CSS, and vanilla Javascript
 
+## Demo
+
+https://lmasullo.github.io/Word-Guess/
+
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. 
